@@ -29,8 +29,7 @@ SECRET_KEY = config("SECRET_KEY", default="e)cuwp()+h0&%e8z5u6$@^90$@d6@9vci48=^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=True, cast=bool)
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="*", cast=str).split(",")
 
 # Application definition
 

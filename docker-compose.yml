@@ -6,6 +6,8 @@ services:
       - .env.docker
     ports:
       - '8000:8000'
+    volumes:
+      - .:/app
     depends_on:
       - postgresql
       - redis
@@ -14,10 +16,12 @@ services:
     build: .
     env_file:
       - .env.docker
-    command: celery -A api_demo worker -l INFO
+    volumes:
+      - .:/app
     depends_on:
       - postgresql
       - redis
+    command: celery -A api_demo worker -l INFO
     restart: on-failure
   redis:
     image: redis:alpine
