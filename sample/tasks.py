@@ -1,25 +1,17 @@
 from celery import shared_task
 
-from django.db import transaction
-
 from .models import Item, Task
 
 
 @shared_task()
-def create_an_item(name, description, task_id):
-    """ A task that simulates a long-running process
+def process_long_running_task(number_of_items, task_id):
+    """ Process a long-running task
     """
-    instance = Item.long_run_process(name, description)  # This is our long-running process
-    with transaction.atomic():
-        try:
-            task = Task.objects.select_for_update().get(task_id)
-        except Task.DoesNotExist:
-            return instance
+    Task.objects.filter(id=task_id).update(status='PROCESSING')
 
-        task.list_done_items += f'{instance.id},'
-        if task.list_done_items.count(',') == task.number_of_items:
-            task.status = 'SUCCESS'
-        else:
-            task.status = 'PROCESSING'
-        task.save()
-    return instance
+    for i in range(number_of_items):
+        Item.long_run_process(name=f'Item {i}', description=f'Description {i}')
+        Task.objects.filter(id=task_id).update(count_done_items=i + 1)
+
+    Task.objects.filter(id=task_id).update(status='SUCCESS')
+    return True

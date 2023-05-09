@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+    <ul>
+        <li><a href="{% url 'submit_default' %}">{% trans 'submit_default' %}</a></li>
+        <li><a href="{% url 'submit_with_tuning' %}">{% trans 'submit_with_tuning' %}</a></li>
+    </ul>
+{% endblock %}

@@ -1,24 +1,30 @@
 import time
 
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Task(models.Model):
 
-    LIST_STATUS = (
+    LIST_STATUSES = (
         ('QUEUED', 'Queued'),
         ('PROCESSING', 'Processing'),
         ('SUCCESS', 'Success'),
     )
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    # We could add more fields to this model to track more types of tasks
+    # But for the simplicity, we will only track the number of items as we only have one type of task for this example
+
     number_of_items = models.PositiveIntegerField()
-    list_done_items = models.TextField(default='')
-    status = models.CharField(max_length=255, default='QUEUED', choices=LIST_STATUS)
+    count_done_items = models.PositiveIntegerField(default=0)
+    status = models.CharField(max_length=255, default='QUEUED', choices=LIST_STATUSES)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def done_percentage(self):
-        return self.list_done_items.count(',') / self.number_of_items * 100
+        return (self.count_done_items / self.number_of_items) * 100
 
 
 class Item(models.Model):

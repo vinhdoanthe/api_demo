@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+    <h1>{% trans 'Send a request with tuning' %}</h1>
+    <form id="tuning-form" method="post">
+        {% csrf_token %}
+        {{ task_form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <div id="result">
+
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/sample/submit_with_tuning.js' %}"></script>
+{% endblock %}

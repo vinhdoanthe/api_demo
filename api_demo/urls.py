@@ -16,11 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-import sample.views as sample_views
+import sample.views.api as sample_views_api
+import sample.views.demo as sample_views_demo
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('api-auth/', include('rest_framework.urls')),
-    path('long-running-task/', sample_views.long_running_task),
-    path('long-running-task/<str:task_id>/', sample_views.get_long_running_task_status),
+
+    # API
+    path('api/long-running-task/', sample_views_api.long_running_task, name='api_long_running_task'),
+    path('api/tuned-long-running-task/', sample_views_api.long_running_task_with_tuning,
+         name='api_long_running_task_with_tuning'),
+    path('api/tuned-long-running-task/<str:task_id>/', sample_views_api.get_long_running_task_status,
+         name='api_get_long_running_task_status'),
+
+    # Demo
+    path('', sample_views_demo.index),
+    path('submit-default', sample_views_demo.submit_default, name='submit_default'),
+    path('submit-with-tuning', sample_views_demo.submit_with_tuning, name='submit_with_tuning'),
 ]
