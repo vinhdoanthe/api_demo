@@ -1,5 +1,7 @@
 Django==4.2.1
 djangorestframework==3.14.0
 celery==5.2.7
-python-decouple==3.4
-redis==3.5.3
+python-decouple==3.8
+redis==4.5.5
+dj-database-url==2.0.0
+psycopg==3.1.9

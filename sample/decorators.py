@@ -13,11 +13,18 @@ def one_active_request_only(function):
         if not task:
             return function(request, *args, **kwargs)
         else:
-            return Response(status=status.HTTP_400_BAD_REQUEST,
-                            data={
-                                'success': False,
-                                'message': 'There is an active request'
-                            })
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                data={
+                    'success': False,
+                    'message': 'There is an active request',
+                    'data': {
+                        'task_id': task.first().id,
+                    }
+                }
+            )
+
     wrap.__doc__ = function.__doc__
     wrap.__name__ = function.__name__
+
     return wrap

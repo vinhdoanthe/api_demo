@@ -108,6 +108,7 @@ def get_long_running_task_status(request, task_id, format=None):
                 'task_status': task.status,
                 'done_percentage': task.done_percentage(),
                 'count_done_items': task.count_done_items,
+                'number_of_items': task.number_of_items,
             }
         }
     )

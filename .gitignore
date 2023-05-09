@@ -3,6 +3,7 @@
 
 # Environment variables
 .env
+.env.postgresql
 
 # Virtual environment
 venv
@@ -15,3 +16,4 @@ __pycache__
 
 # Database
 db.sqlite3
+pgdata

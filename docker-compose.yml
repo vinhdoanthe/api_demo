@@ -1,6 +1,35 @@
 version: "3"
 services:
+  web:
+    build: .
+    env_file:
+      - .env.docker
+    ports:
+      - '8000:8000'
+    depends_on:
+      - postgresql
+      - redis
+    restart: on-failure
+  celery_worker:
+    build: .
+    env_file:
+      - .env.docker
+    command: celery -A api_demo worker -l INFO
+    depends_on:
+      - postgresql
+      - redis
+    restart: on-failure
   redis:
     image: redis:alpine
     ports:
-      - "6379:6379"
+      - "63790:6379"
+    restart: always
+  postgresql:
+    image: postgres:alpine
+    env_file:
+      - .env.postgresql
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "54320:5432"
+    restart: always
