@@ -37,6 +37,6 @@ class Item(models.Model):
     def long_run_process(cls, name, description):
         """A method that simulates a long-running process
         """
-        time.sleep(10)
+        time.sleep(2)
         instance = cls.objects.create(name=name, description=description)
         return instance

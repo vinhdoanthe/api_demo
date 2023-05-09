@@ -10,7 +10,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
+
 <div class="container">
+    {% if request.user.is_authenticated %}
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
+    {% endif %}
+
     <div class="row">
         <div class="col">
             {% block content %}

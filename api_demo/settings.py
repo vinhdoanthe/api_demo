@@ -131,3 +131,7 @@ STATICFILES_DIRS = (
 
 # Configuration for Celery
 CELERY_BROKER_URL = config('CELERY_BROKER_REDIS_URL', default='redis://localhost:6379')
+
+# Configuration authentication urls
+LOGIN_URL = '/admin/login/'
+LOGOUT_REDIRECT_URL = '/'

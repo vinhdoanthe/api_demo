@@ -4,6 +4,7 @@
 {% load static %}
 
 {% block content %}
+    <a href="{% url 'index' %}">{% trans 'Back to home' %}</a>
     <h1>{% trans 'Send a request with tuning' %}</h1>
     <form id="tuning-form" method="post">
         {% csrf_token %}

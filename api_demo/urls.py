@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
 import sample.views.api as sample_views_api
@@ -24,6 +25,8 @@ urlpatterns = [
 
     path('api-auth/', include('rest_framework.urls')),
 
+    path("accounts/", include("django.contrib.auth.urls")),
+
     # API
     path('api/long-running-task/', sample_views_api.long_running_task, name='api_long_running_task'),
     path('api/tuned-long-running-task/', sample_views_api.long_running_task_with_tuning,
@@ -32,7 +35,7 @@ urlpatterns = [
          name='api_get_long_running_task_status'),
 
     # Demo
-    path('', sample_views_demo.index),
+    path('', sample_views_demo.index, name='index'),
     path('submit-default', sample_views_demo.submit_default, name='submit_default'),
     path('submit-with-tuning', sample_views_demo.submit_with_tuning, name='submit_with_tuning'),
 ]
