@@ -4,16 +4,21 @@
 {% load static %}
 
 {% block content %}
-    <a href="{% url 'index' %}">{% trans 'Back to home' %}</a>
-    <h1>{% trans 'Send a default request' %}</h1>
-    <form method="POST" id="default-form">
-        {% csrf_token %}
-        {{ task_form.as_p }}
-       <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <div class="row">
+        <a href="{% url 'index' %}">{% trans 'Back to home' %}</a>
+        <h2>{% trans 'Send a default request' %}</h2>
+        <form method="POST" id="default-form">
+            {% csrf_token %}
+            {{ task_form.as_p }}
+           <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 
-    <div id="result">
+    <div class="row mt-1">
+        <h2>Result</h2>
+        <div id="result">
 
+        </div>
     </div>
 {% endblock %}
 

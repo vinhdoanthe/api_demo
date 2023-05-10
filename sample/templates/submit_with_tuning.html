@@ -4,17 +4,22 @@
 {% load static %}
 
 {% block content %}
-    <a href="{% url 'index' %}">{% trans 'Back to home' %}</a>
-    <h1>{% trans 'Send a request with tuning' %}</h1>
-    <form id="tuning-form" method="post">
-        {% csrf_token %}
-        {{ task_form.as_p }}
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
-    <div id="result">
-
+    <div class="row">
+        <a href="{% url 'index' %}">{% trans 'Back to home' %}</a>
+        <h2>{% trans 'Send a request with tuning' %}</h2>
+        <form id="tuning-form" method="post">
+            {% csrf_token %}
+            {{ task_form.as_p }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
+    <div class="row mt-1">
+        <h2>Result</h2>
+        <div id="result">
+
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block extra_js %}
