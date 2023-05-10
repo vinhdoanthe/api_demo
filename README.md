@@ -4,10 +4,24 @@
 ![Requirements](./docs/requirement.png)
 
 ## How to use
-Record a tutorial video on [Loom](https://www.loom.com/)
+<a href="https://www.loom.com/share/0054ec62aec8462dbb2f7ee22c12e1b4">
+    <p>Demo: Django API with client long-polling request to update status - Watch Video</p>
+    <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/0054ec62aec8462dbb2f7ee22c12e1b4-with-play.gif">
+</a>
+
+### Demo system
+URL: https://savvy-demo-api-6nkxh.ondigitalocean.app/  
+Username: demo  
+Password: demo@123
 
 ## How to run
-1. Clone this repository
-2. Run `docker-compose up`
+1. Clone this repository and go to the project folder
+2. Create `.env` file with content like `.env.example`, `.env.docker` file with content like `.env.docker.example`, `.env.postgresql` file with content like `.env.postgresql.example`
+3. Run `docker-compose up`
+4. Access to the `web` container and create a new user with command `python manage.py createsuperuser`
+5. Open `http://localhost:8000` and login with the user you just created
 
 ## How this project is developed
+* Assume that each item in loop need 2 seconds to process by create function `long_run_process` in the `Item` model
+* We handle the API by using `Celery` to process the task in background and use long-polling request to update the status of the request. See the function `long_running_task_with_tuning` in `sample.views.api` for more detail
+* We use a model - `Task` to store the status of request. The status will be updated by the `Celery` task. 
