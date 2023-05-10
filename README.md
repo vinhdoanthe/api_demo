@@ -17,9 +17,20 @@ Password: demo@123
 ## How to run
 1. Clone this repository and go to the project folder
 2. Create `.env` file with content like `.env.example`, `.env.docker` file with content like `.env.docker.example`, `.env.postgresql` file with content like `.env.postgresql.example`
-3. Run `docker-compose up`
-4. Access to the `web` container and create a new user with command `python manage.py createsuperuser`
-5. Open `http://localhost:8000` and login with the user you just created
+```bash
+cp .env.example .env
+cp .env.docker.example .env.docker
+cp .env.postgresql.example .env.postgresql
+```
+   
+3. Build docker image and run docker container
+```bash
+docker-compose build
+docker-compose up
+```
+4. Access to the `web` container and run `python manage.py migrate` to migrate database
+5. Access to the `web` container and create a new user with command `python manage.py createsuperuser`
+6. Open `http://localhost:8000` and login with the user you just created
 
 ## How this project is developed
 * Assume that each item in loop need 2 seconds to process by create function `long_run_process` in the `Item` model
