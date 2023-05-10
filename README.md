@@ -34,5 +34,5 @@ docker-compose up
 
 ## How this project is developed
 * Assume that each item in loop need 2 seconds to process by create function `long_run_process` in the `Item` model
-* We handle the API by using `Celery` to process the task in background and use long-polling request to update the status of the request. See the function `long_running_task_with_tuning` in `sample.views.api` for more detail
-* We use a model - `Task` to store the status of request. The status will be updated by the `Celery` task. 
+* Handle the API by using `Celery` to process the task in background and use long-polling request to update the status of the request. I also write a decorator to protect server against users submitting parallel requests. See the function `long_running_task_with_tuning` in `sample.views.api` for more detail
+* Use a model - `Task` to store the status of request. The status will be updated by the `Celery` task. 
