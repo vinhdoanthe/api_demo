@@ -177,11 +177,11 @@ def get_long_running_task_status(request, task_id, format=None):
 ### Client side
 It's separated into 2 parts:
 * Send the main request and get the task id
-* Get the status of the task by task id and update the progress bar periodically
+* Get the status of the task by task id and update the progress indicator periodically
 
 Users will be able to see that the request is processing. It makes a better user experience.
 
 ### Other considerations
-* Use `Django Channels` (WebSocket) for updating the progress bar in real-time
+* Use `Django Channels` (WebSocket) for updating the progress indicator in real-time
 * We could use Redis to store the task status instead of using the database
-* The logic to check the uniqueness of the request could be changed by using hash function of request data
+* The logic to check the uniqueness of the request could be changed by using hash function of request data. By this way, we could apply it for any requests we want to check.
